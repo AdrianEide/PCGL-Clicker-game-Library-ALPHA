@@ -18,7 +18,8 @@ Find out the perks and downsides in the library_Raw section at the bottom of the
 Library_A.py is the main library for the while and may experience alot of changes 
 and will seperate into two versions later these new versions being:
 
-# Library_Beta: "Final product" having only the basic functionalities and taking up less processing
+# Library_Beta: 
+"Final product" having only the basic functionalities and taking up less processing
 these are the perks of Library_Beta:
 
 + Only a few performance fixes and refurbishes to the code to make it lighter/faster.
@@ -37,7 +38,8 @@ overall this version is good for people just wanting to mess with it
 might be better for the people who dont like too many choices
 better for the people who get overwhelmed
 
-# Library_Omega: The main line that gets updated with features when im able to and migth become bigger as time goes
+# Library_Omega: 
+The main line that gets updated with features when im able to and migth become bigger as time goes
 these are the perks of Library_Omega
 
 + Better/More features
