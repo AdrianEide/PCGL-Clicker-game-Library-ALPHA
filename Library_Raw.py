@@ -17,56 +17,22 @@ dark_mode = False
 URebirth = False
 
 # Upgrade System
-upgrades = [
-    {"name": "Double Click", "cost": 10, "effect": 2, "level": 0, "max_level": 5},
-    {"name": "Triple Click", "cost": 50, "effect": 3, "level": 0, "max_level": 3},
-    {"name": "Auto Clicker", "cost": 100, "effect": "auto", "level": 0, "max_level": 2},
-    {"name": "Rebirth", "cost": 100000, "effect": "Rebirth", "level": 0, "max_level": 1},
-    {"name": "Quad", "cost": 1000000,"effect": 40, "level": 0, "max_level": 2}
-]
-max_index = upgrades.index(max(upgrades))
-auto_click_rate = 0  # Number of cookies per second added automatically
+upgrades = []
+
+auto_click_rate = 0
 
 # Colors and Themes
 THEMES = {
-    "light": {
+    "Default": {
         "background": (255, 255, 255),
         "text": (50, 50, 50),
         "highlight": (0, 128, 255),
         "dialog": (240, 240, 240),
         "dialog_border": (0, 128, 255),
     },
-    "dark": {
-        "background": (30, 30, 30),
-        "text": (200, 200, 200),
-        "highlight": (0, 128, 255),
-        "dialog": (50, 50, 50),
-        "dialog_border": (0, 128, 255),
-    },
-    "soft_pink": {
-        "background": (255, 228, 225),
-        "text": (120, 45, 65),
-        "highlight": (255, 182, 193),
-        "dialog": (255, 240, 245),
-        "dialog_border": (255, 105, 180),
-    },
-    "abyss_blue": {
-        "background": (15, 32, 62),
-        "text": (200, 225, 255),
-        "highlight": (0, 76, 153),
-        "dialog": (25, 50, 100),
-        "dialog_border": (0, 51, 102),
-    },
-    "???":{
-        "background": (125, 0, 0),
-        "text": (200, 200, 200),
-        "highlight": (228, 128, 55),
-        "dialog": (50, 50, 50),
-        "dialog_border": (0, 128, 255),
-    }
 }
 
-current_theme = "light"
+current_theme = "Default"
 colors = THEMES[current_theme]
 
 # Initialize Screen
@@ -136,12 +102,6 @@ def purchase_upgrade(index):
             upgrade["cost"] / 2
             value_per_click *= upgrade["effect"]
 
-def hyper_mode(index):
-    if rebirth_multiplier == 10:
-        switch_theme("???")
-        URebirth = True
-        auto_click_rate = value_per_click * rebirth_multiplier * auto_click_rate
-# Main Game Loop
 def main():
     global cookies
 
@@ -160,16 +120,11 @@ def main():
         render_text(f"Value per Click: {value_per_click}", 20, 120, FONT, colors["text"])
         if auto_click_rate > 0:
             render_text(f"Auto Click Rate: {auto_click_rate}/s", 20, 160, FONT, colors["text"])
-        render_text(f"Rebirth Multiplier: x{rebirth_multiplier}", 20, 200, FONT, colors["text"])
-        if rebirth_multiplier >= 5:
-            render_text(f"rebirth {rebirth_multiplier} > 5, Boost active", 20, 50, FONT, colors["text"])
-        else:
-            render_text(f"rebirth {rebirth_multiplier} < 5, Boost inactive", 20, 50, FONT, colors["text"])
         # Render Buttons
         if cookie_button.draw(screen):
             cookies += value_per_click
         render_upgrades()
-
+        
         # Auto Clicker Logic
         current_time = pygame.time.get_ticks()
         if auto_click_rate > 0 and current_time - last_auto_click >= 1000:
@@ -191,27 +146,10 @@ def main():
 
                 elif event.key == pygame.K_1:
                     purchase_upgrade(0)
-                elif event.key == pygame.K_2:
-                    purchase_upgrade(1)
-                elif event.key == pygame.K_3:
-                    purchase_upgrade(2)
-                elif event.key == pygame.K_4:
-                    purchase_upgrade(3)
                 # Toggle Themes
-                elif event.key == pygame.K_z:
-                    if URebirth == False:
-                        switch_theme("light")
                 elif event.key == pygame.K_d:
-                    if URebirth == False:
-                        switch_theme("dark")
-                elif event.key == pygame.K_p:
-                    if URebirth == False:
-                        switch_theme("soft_pink")
-                elif event.key == pygame.K_b:
-                    if URebirth == False:
-                        switch_theme("abyss_blue")
-                elif event.key == pygame.K_k:
-                    switch_theme("???")
+                        switch_theme("Default")
+
         pygame.display.update()
         clock.tick(FPS)
 
